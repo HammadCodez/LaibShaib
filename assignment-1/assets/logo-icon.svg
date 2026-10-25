@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" fill="none" role="img" aria-label="LabShaib Icon">
+  <!-- Scope Outer Bezel / Reticle -->
+  <circle cx="30" cy="30" r="26" stroke="#002D62" stroke-width="2.5" fill="#f8fafc" />
+  
+  <!-- Reticle Crosshairs & Grid Lines -->
+  <line x1="30" y1="6" x2="30" y2="54" stroke="#cbd5e1" stroke-width="1.25" stroke-dasharray="2 2" />
+  <line x1="6" y1="30" x2="54" y2="30" stroke="#cbd5e1" stroke-width="1.25" stroke-dasharray="2 2" />
+  <circle cx="30" cy="30" r="16" stroke="#e2e8f0" stroke-width="1.25" fill="none" />
+
+  <!-- 4 Scope Corner Calibration Marks -->
+  <path d="M 14 14 H 9 V 19" stroke="#002D62" stroke-width="2" />
+  <path d="M 46 14 H 51 V 19" stroke="#002D62" stroke-width="2" />
+  <path d="M 14 46 H 9 V 41" stroke="#002D62" stroke-width="2" />
+  <path d="M 46 46 H 51 V 41" stroke="#002D62" stroke-width="2" />
+
+  <!-- Active Oscilloscope Waveform (Teal Pulse) -->
+  <path d="M 8 30 H 18 L 22 17 L 29 42 L 34 22 L 39 30 H 52" stroke="#0d9488" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Leading Signal Node / Laser Point -->
+  <circle cx="39" cy="30" r="3" fill="#0d9488" />
+</svg>

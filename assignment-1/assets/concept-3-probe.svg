@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" fill="none" role="img" aria-label="LabShaib Concept 3: Probe & Pulse">
+  <!-- Concept 3: Test Probe & Pulse -->
+  <g transform="translate(6, 6)">
+    <!-- Stylized Angled Oscilloscope Probe Body -->
+    <path d="M 8 8 L 18 18 L 19 22 L 23 23 L 26 26" stroke="#002D62" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+    <!-- Fine Probe Needle Tip -->
+    <path d="M 18 18 L 22 22" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" />
+    
+    <!-- Test Point / Solder Node Pad -->
+    <circle cx="22" cy="22" r="3.5" fill="#0d9488" />
+    <circle cx="22" cy="22" r="7" stroke="#14b8a6" stroke-width="1" stroke-dasharray="2 2" fill="none" />
+
+    <!-- Signal Pulse Emanating from Probe Point -->
+    <path d="M 22 22 H 26 L 30 11 L 34 32 L 38 18 L 42 22 H 46" stroke="#0d9488" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Typography -->
+  <text x="66" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="800" fill="#002D62" letter-spacing="-0.5">Lab<tspan fill="#0d9488">Shaib</tspan></text>
+  <text x="67" y="49" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" fill="#64748b" letter-spacing="1.5">EQUIPMENT SCHEDULER</text>
+</svg>

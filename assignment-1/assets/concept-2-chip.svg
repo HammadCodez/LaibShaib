@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 60" fill="none" role="img" aria-label="LabShaib Concept 2: IC Chip Wave">
+  <!-- Concept 2: The Integrated Circuit Wave -->
+  <!-- Chip Package (48x48) -->
+  <g transform="translate(6, 6)">
+    <!-- Edge Connector Pins (IC Legs) -->
+    <!-- Top & Bottom Pins -->
+    <path d="M 16 2 V 6 M 24 2 V 6 M 32 2 V 6" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+    <path d="M 16 42 V 46 M 24 42 V 46 M 32 42 V 46" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+    <!-- Left & Right Pins -->
+    <path d="M 2 16 H 6 M 2 24 H 6 M 2 32 H 6" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+    <path d="M 42 16 H 46 M 42 24 H 46 M 42 32 H 46" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+
+    <!-- Silicon Chip Die (Dark Navy Body) -->
+    <rect x="6" y="6" width="36" height="36" rx="6" fill="#002D62" />
+    <!-- Pin 1 Index Notch -->
+    <circle cx="12" cy="12" r="1.75" fill="#38bdf8" />
+
+    <!-- Digital Signal Waveform Flowing Across Silicon -->
+    <path d="M 8 24 H 14 L 17 15 L 22 33 L 26 19 L 30 24 H 40" stroke="#14b8a6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Typography -->
+  <text x="66" y="36" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="26" font-weight="800" fill="#002D62" letter-spacing="-0.5">Lab<tspan fill="#0d9488">Shaib</tspan></text>
+  <text x="67" y="49" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="8.5" font-weight="700" fill="#64748b" letter-spacing="1.5">HARDWARE &amp; LAB OPERATIONS</text>
+</svg>

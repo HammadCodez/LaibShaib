@@ -1,0 +1,21 @@
+# Internal Agent & Instruction Files (Never push to GitHub)
+agents.md
+CLAUDE.md
+docs/
+
+# Course Reference Materials & Assignment Prompts
+*.docx
+*.xlsx
+*.pdf
+
+# OS & Editor Files
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Logs & Temporary Files
+*.log
+*.tmp
+node_modules/
