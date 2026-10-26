@@ -1,0 +1,1829 @@
+/**
+ * LabShaib — Modern Campus Laboratory Equipment Reservation Suite
+ * Handcrafted Pure CSS3 Architecture (No Frameworks)
+ * Compliant with CS344 Web Engineering Rubric & WCAG 2.1 AA Standards
+ * Author: Muhammad Hammad Butt (CMS: 501399) - SE15B
+ */
+
+/* ==========================================================================
+   1. DESIGN TOKENS & CSS CUSTOM PROPERTIES
+   ========================================================================== */
+:root {
+  /* Global Color Primitives (Layer 1) */
+  --slate-950: #020617;
+  --slate-900: #0f172a;
+  --slate-800: #1e293b;
+  --slate-700: #334155;
+  --slate-600: #475569;
+  --slate-500: #64748b;
+  --slate-400: #94a3b8;
+  --slate-300: #cbd5e1;
+  --slate-200: #e2e8f0;
+  --slate-100: #f1f5f9;
+  --slate-50:  #f8fafc;
+  --white:     #ffffff;
+
+  /* NUST Corporate & Academic Palette (Default Tenant) */
+  --nust-blue-900: #00224b;
+  --nust-blue-800: #002D62; /* Official NUST Blue */
+  --nust-blue-700: #0f3669;
+  --nust-blue-600: #1a4985;
+  --nust-blue-50:  #eff6ff;
+
+  --tech-teal-700: #0f766e;
+  --tech-teal-600: #0d9488; /* Engineering Action Teal */
+  --tech-teal-500: #14b8a6;
+  --tech-teal-100: #ccfbf1;
+  --tech-teal-50:  #f0fdfa;
+
+  --amber-700: #b45309;
+  --amber-600: #d97706; /* Calibration / Warning Amber */
+  --amber-100: #fef3c7;
+  --amber-50:  #fffbeb;
+
+  --green-700: #15803d;
+  --green-600: #16a34a; /* Operational / Available Green */
+  --green-100: #dcfce7;
+  --green-50:  #f0fdf4;
+
+  --red-700:   #b91c1c;
+  --red-600:   #dc2626; /* Conflict / Fault Red */
+  --red-100:   #fee2e2;
+  --red-50:    #fef2f2;
+
+  --blue-600:  #2563eb; /* Reserved Blue */
+  --blue-100:  #dbeafe;
+
+  /* Semantic Theme Aliases (Layer 2) */
+  --color-canvas: var(--slate-50);
+  --color-surface: var(--white);
+  --color-surface-hover: #fcfdfe;
+  --color-surface-sunken: var(--slate-100);
+  --color-border: var(--slate-200);
+  --color-border-hover: var(--slate-300);
+  --color-border-focus: var(--tech-teal-600);
+
+  --color-text-main: var(--slate-900);
+  --color-text-muted: var(--slate-600);
+  --color-text-light: var(--slate-400);
+  --color-text-inverse: var(--white);
+
+  /* Dynamic Multi-Tenant Overridable Hooks (Layer 3) */
+  --brand-primary: var(--nust-blue-800);
+  --brand-primary-hover: var(--nust-blue-700);
+  --brand-primary-subtle: var(--nust-blue-50);
+  --brand-accent: var(--tech-teal-600);
+  --brand-accent-hover: var(--tech-teal-700);
+  --brand-accent-subtle: var(--tech-teal-50);
+
+  /* Elevation & Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -2px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -4px rgba(15, 23, 42, 0.03);
+  --shadow-modal: 0 20px 25px -5px rgba(15, 23, 42, 0.2), 0 8px 10px -6px rgba(15, 23, 42, 0.15);
+
+  /* Radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+
+  /* Typography Scale */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Layout Constants */
+  --max-width-container: 1280px;
+  --header-height: 72px;
+  --min-tap-target: 44px;
+}
+
+/* ==========================================================================
+   2. RESET, BOX-MODEL & ACCESSIBILITY DEFAULTS
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--color-text-main);
+  background-color: var(--color-canvas);
+  min-height: 100vh;
+  max-width: 100%;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+img, picture, svg, video, canvas {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tabular Numerals for Inventory & Time Alignments */
+.font-tabular {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+.font-bold {
+  font-weight: 700;
+}
+
+/* Utility Hidden & Screen Reader Classes */
+.hidden {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Accessible Focus Rings */
+:focus-visible {
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
+}
+
+/* Skip Navigation Link for Keyboard / Screen Reader Users */
+.skip-link {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  background-color: var(--brand-accent);
+  color: var(--color-text-inverse);
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  z-index: 9999;
+  text-decoration: none;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Container Structure */
+.container {
+  width: 100%;
+  max-width: var(--max-width-container);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+/* ==========================================================================
+   3. PERSISTENT INSTITUTIONAL HEADER & NAVIGATION
+   ========================================================================== */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  min-height: var(--header-height);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Brand Group */
+.header-brand-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.brand-logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.institution-meta {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0.85rem;
+  border-left: 1px solid var(--color-border);
+}
+
+.institution-name {
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  color: var(--brand-primary);
+  text-transform: uppercase;
+}
+
+.institution-branch {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+/* Quick Search in Header */
+.header-search-wrapper {
+  flex: 1;
+  max-width: 340px;
+}
+
+.input-icon-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-svg-icon {
+  position: absolute;
+  left: 0.85rem;
+  width: 16px;
+  height: 16px;
+  color: var(--color-text-light);
+  pointer-events: none;
+}
+
+.header-search-input {
+  width: 100%;
+  height: 38px;
+  padding: 0 0.85rem 0 2.3rem;
+  font-size: 0.85rem;
+  font-family: inherit;
+  color: var(--color-text-main);
+  background-color: var(--color-surface-sunken);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.header-search-input:focus {
+  background-color: var(--color-surface);
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+}
+
+/* 3-Tier Role Switcher Console */
+.header-role-console {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.role-switcher-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.role-pills-group {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--color-surface-sunken);
+  padding: 3px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+}
+
+.role-pill-option {
+  position: relative;
+  cursor: pointer;
+  margin: 0;
+}
+
+.role-pill-option input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.role-pill-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  user-select: none;
+}
+
+.role-icon {
+  width: 14px;
+  height: 14px;
+}
+
+.role-pill-option input[type="radio"]:checked + .role-pill-label {
+  background-color: var(--brand-primary);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-sm);
+}
+
+.role-pill-option input[type="radio"]:focus-visible + .role-pill-label {
+  outline: 2px solid var(--brand-accent);
+}
+
+/* User Context Badge */
+.user-context-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 0.6rem 0.25rem 0.35rem;
+  background-color: var(--brand-primary-subtle);
+  border: 1px solid rgba(0, 45, 98, 0.15);
+  border-radius: var(--radius-full);
+}
+
+.user-avatar-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
+  background-color: var(--brand-primary);
+  color: var(--color-text-inverse);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.user-meta-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.15;
+}
+
+.user-full-name {
+  font-size: 0.76rem;
+  color: var(--brand-primary);
+}
+
+.user-sub-id {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+}
+
+/* Campus Alert Banner */
+.campus-alert-strip {
+  background-color: var(--amber-50);
+  border-bottom: 1px solid var(--amber-100);
+  color: var(--amber-700);
+  font-size: 0.8rem;
+  padding: 0.4rem 0;
+}
+
+.alert-strip-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.alert-badge {
+  background-color: var(--amber-600);
+  color: var(--color-text-inverse);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.alert-message {
+  flex: 1;
+  margin: 0;
+}
+
+.btn-dismiss-alert {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--amber-700);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.btn-dismiss-alert:hover {
+  background-color: rgba(217, 119, 6, 0.15);
+}
+
+/* ==========================================================================
+   4. MAIN WORKSPACE & PORTAL VIEWS
+   ========================================================================== */
+.main-wrapper {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 3.5rem;
+}
+
+.view-panel {
+  display: block;
+}
+
+.portal-header-block {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.section-title {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.section-description {
+  color: var(--color-text-muted);
+  font-size: 0.92rem;
+  max-width: 720px;
+  margin-top: 0.4rem;
+}
+
+.portal-quick-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   5. KPI STATS CARDS DASHBOARD
+   ========================================================================== */
+.kpi-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.kpi-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-hover);
+}
+
+.kpi-icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.kpi-icon-badge svg {
+  width: 24px;
+  height: 24px;
+}
+
+.kpi-badge-navy  { background-color: var(--brand-primary-subtle); color: var(--brand-primary); }
+.kpi-badge-green { background-color: var(--green-100); color: var(--green-600); }
+.kpi-badge-blue  { background-color: var(--blue-100); color: var(--blue-600); }
+.kpi-badge-teal  { background-color: var(--tech-teal-100); color: var(--tech-teal-600); }
+
+.kpi-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpi-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.kpi-value {
+  font-size: 1.75rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-text-main);
+  margin-top: 0.15rem;
+}
+
+.kpi-footnote {
+  font-size: 0.74rem;
+  color: var(--color-text-light);
+  margin-top: 0.2rem;
+}
+
+.text-success { color: var(--green-600) !important; }
+.text-info    { color: var(--blue-600) !important; }
+.text-warning { color: var(--amber-600) !important; }
+.text-danger  { color: var(--red-600) !important; }
+
+/* ==========================================================================
+   6. SEARCH & MULTI-CRITERIA FILTER CONSOLE
+   ========================================================================== */
+.catalogue-controls-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.filters-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filter-row-primary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.flex-1 { flex: 1 1 200px; min-width: 0; }
+.flex-2 { flex: 2 1 280px; min-width: 0; }
+.flex-full { flex: 1 1 100%; min-width: 0; }
+
+.form-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.required-star {
+  color: var(--red-600);
+}
+
+.form-control {
+  width: 100%;
+  height: 42px;
+  padding: 0 0.85rem;
+  font-size: 0.88rem;
+  font-family: inherit;
+  color: var(--color-text-main);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+select.form-control {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 14px;
+  padding-right: 2rem;
+  appearance: none;
+}
+
+.form-control:focus {
+  border-color: var(--brand-accent);
+  box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.15);
+  outline: none;
+}
+
+textarea.form-control {
+  height: auto;
+  padding-top: 0.65rem;
+  padding-bottom: 0.65rem;
+}
+
+.form-control-sm {
+  height: 34px;
+  font-size: 0.8rem;
+}
+
+.filter-row-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--slate-100);
+}
+
+.active-filter-summary {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   7. BUTTONS & UI ACTIONS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-height: var(--min-tap-target);
+  padding: 0.55rem 1.25rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  font-family: inherit;
+  line-height: 1.2;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  user-select: none;
+  white-space: nowrap;
+}
+
+.btn-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.btn-primary {
+  background-color: var(--brand-primary);
+  color: var(--color-text-inverse);
+  border-color: var(--brand-primary);
+}
+
+.btn-primary:hover {
+  background-color: var(--brand-primary-hover);
+  border-color: var(--brand-primary-hover);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+  background-color: var(--brand-accent);
+  color: var(--color-text-inverse);
+  border-color: var(--brand-accent);
+}
+
+.btn-secondary:hover {
+  background-color: var(--brand-accent-hover);
+  border-color: var(--brand-accent-hover);
+}
+
+.btn-outline {
+  background-color: var(--color-surface);
+  color: var(--color-text-main);
+  border-color: var(--color-border);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-surface-sunken);
+  border-color: var(--color-border-hover);
+}
+
+.btn-sm {
+  min-height: 34px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.btn:disabled, .btn[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   8. EQUIPMENT CATALOGUE CARDS GRID
+   ========================================================================== */
+.equipment-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 1.5rem;
+}
+
+.equipment-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
+}
+
+.equipment-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-border-hover);
+}
+
+.eq-card-header {
+  padding: 1.25rem 1.25rem 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--slate-100);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.eq-card-facility {
+  display: flex;
+  flex-direction: column;
+}
+
+.eq-facility-room {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--brand-accent);
+}
+
+.eq-asset-code {
+  font-size: 0.78rem;
+  color: var(--color-text-light);
+  font-family: var(--font-mono);
+}
+
+.eq-card-body {
+  padding: 1.25rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.eq-item-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+}
+
+.eq-specs-text {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+  margin-bottom: 1rem;
+  flex: 1;
+}
+
+.eq-meta-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-surface-sunken);
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+}
+
+.meta-pill-clearance {
+  background-color: var(--brand-primary-subtle);
+  color: var(--brand-primary);
+  border-color: rgba(0, 45, 98, 0.15);
+}
+
+.eq-card-footer {
+  padding: 1rem 1.25rem;
+  background-color: var(--slate-50);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.eq-availability-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.eq-stock-count {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.eq-quota-hint {
+  font-size: 0.72rem;
+  color: var(--color-text-light);
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.65rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.status-badge::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+}
+
+.status-available {
+  background-color: var(--green-100);
+  color: var(--green-700);
+}
+.status-available::before { background-color: var(--green-600); }
+
+.status-reserved {
+  background-color: var(--blue-100);
+  color: var(--blue-600);
+}
+.status-reserved::before { background-color: var(--blue-600); }
+
+.status-maintenance {
+  background-color: var(--amber-100);
+  color: var(--amber-700);
+}
+.status-maintenance::before { background-color: var(--amber-600); }
+
+.status-danger {
+  background-color: var(--red-100);
+  color: var(--red-700);
+}
+.status-danger::before { background-color: var(--red-600); }
+
+/* ==========================================================================
+   9. EMPTY STATES & ERROR FEEDBACK
+   ========================================================================== */
+.empty-state-card {
+  background-color: var(--color-surface);
+  border: 1px dashed var(--color-border-hover);
+  border-radius: var(--radius-lg);
+  padding: 3rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.empty-state-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background-color: var(--slate-100);
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.empty-state-icon svg {
+  width: 28px;
+  height: 28px;
+}
+
+.empty-state-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  margin-bottom: 0.4rem;
+}
+
+.empty-state-desc {
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+  max-width: 480px;
+  margin-bottom: 1.5rem;
+}
+
+/* ==========================================================================
+   10. ACTIVE DIGITAL PASSES (STUDENT DASHBOARD)
+   ========================================================================== */
+.active-passes-wrapper {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.section-sub-header {
+  margin-bottom: 1.25rem;
+}
+
+.section-sub-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+}
+
+.section-sub-desc {
+  font-size: 0.86rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+}
+
+.passes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 1.25rem;
+}
+
+.pass-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 5px solid var(--brand-accent);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.pass-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pass-ref-code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+
+.pass-equipment-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+}
+
+.pass-time-details {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.pass-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--slate-100);
+}
+
+/* ==========================================================================
+   11. DATA TABLES & INSTRUCTOR / ADMIN LEDGERS
+   ========================================================================== */
+.admin-data-card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.card-header-bar {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+}
+
+.card-subtitle {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-top: 0.2rem;
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.85rem;
+}
+
+.data-table th {
+  background-color: var(--slate-100);
+  color: var(--slate-700);
+  font-weight: 700;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.data-table td {
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--slate-100);
+  vertical-align: middle;
+}
+
+.data-table tr:hover td {
+  background-color: var(--color-surface-hover);
+}
+
+.text-right { text-align: right; }
+
+.badge-scope-pill {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  background-color: var(--tech-teal-100);
+  color: var(--tech-teal-700);
+  margin-bottom: 0.4rem;
+}
+
+.badge-scope-super {
+  background-color: var(--brand-primary-subtle);
+  color: var(--brand-primary);
+}
+
+/* ==========================================================================
+   12. BRANDING CUSTOMIZER GRID (SUPER ADMIN)
+   ========================================================================== */
+.branding-customizer-grid {
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1.25rem;
+}
+
+.color-picker-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.color-input {
+  width: 48px;
+  height: 42px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 2px;
+  cursor: pointer;
+}
+
+.color-hex-display {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text-main);
+  background-color: var(--color-surface-sunken);
+  padding: 0.35rem 0.65rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+}
+
+/* ==========================================================================
+   13. MODALS, DIALOGS & FORM FIELDSETS
+   ========================================================================== */
+.app-modal {
+  border: none;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-modal);
+  padding: 0;
+  margin: auto;
+  max-width: min(640px, 92vw);
+  width: 92%;
+  background: transparent;
+  color: var(--color-text-main);
+  overflow-x: hidden;
+}
+
+.app-modal::backdrop {
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.modal-dialog-content {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 1.75rem;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.modal-eyebrow {
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--brand-accent);
+}
+
+.modal-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+  margin-top: 0.15rem;
+}
+
+.btn-modal-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+}
+
+.btn-modal-close:hover {
+  background-color: var(--slate-100);
+  color: var(--color-text-main);
+}
+
+.modal-info-strip {
+  background-color: var(--brand-primary-subtle);
+  border: 1px solid rgba(0, 45, 98, 0.15);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.84rem;
+  color: var(--brand-primary);
+}
+
+.form-fieldset {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem 1.25rem 1.25rem;
+  background-color: var(--color-surface);
+}
+
+.fieldset-legend {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+  padding: 0 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.form-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.input-hint {
+  font-size: 0.72rem;
+  color: var(--color-text-light);
+  margin-top: 0.2rem;
+}
+
+/* Quota Meter & Duration Calculator */
+.duration-meter-card {
+  background-color: var(--slate-100);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 0.85rem 1rem;
+}
+
+.duration-meter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.duration-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.duration-val {
+  font-size: 0.95rem;
+  color: var(--color-text-main);
+}
+
+.quota-pill {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+}
+
+.quota-pass {
+  background-color: var(--green-100);
+  color: var(--green-700);
+}
+
+.quota-fail {
+  background-color: var(--red-100);
+  color: var(--red-700);
+}
+
+.quota-progress-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--slate-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 0.4rem;
+}
+
+.quota-progress-fill {
+  height: 100%;
+  background-color: var(--brand-accent);
+  transition: width var(--transition-normal);
+}
+
+.duration-meter-footnote {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+
+/* Conflict Alert Box */
+.conflict-alert-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  line-height: 1.4;
+}
+
+.conflict-alert-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.alert-success {
+  background-color: var(--green-50);
+  border: 1px solid var(--green-100);
+  color: var(--green-700);
+}
+
+.alert-conflict {
+  background-color: var(--red-50);
+  border: 1px solid var(--red-100);
+  color: var(--red-700);
+}
+
+/* Checkbox Style */
+.checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  cursor: pointer;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.checkbox-container input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin-top: 2px;
+  accent-color: var(--brand-accent);
+  flex-shrink: 0;
+}
+
+.modal-actions-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* ==========================================================================
+   14. DIGITAL RESERVATION PASS / VOUCHER (PRINT READY)
+   ========================================================================== */
+.printable-voucher {
+  background-color: var(--color-surface);
+  border: 2px solid var(--brand-primary);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  position: relative;
+}
+
+.voucher-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px dashed var(--color-border);
+  margin-bottom: 1.25rem;
+}
+
+.voucher-branding {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.voucher-title {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+}
+
+.voucher-sub {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.voucher-ref-badge {
+  background-color: var(--brand-primary);
+  color: var(--color-text-inverse);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.voucher-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.85rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.voucher-cell {
+  display: flex;
+  flex-direction: column;
+}
+
+.v-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.v-value {
+  font-size: 0.86rem;
+  color: var(--color-text-main);
+  margin-top: 0.1rem;
+}
+
+.voucher-rules-box {
+  background-color: var(--slate-50);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 0.85rem;
+  font-size: 0.78rem;
+  margin-bottom: 1.25rem;
+}
+
+.voucher-rules-list {
+  padding-left: 1.25rem;
+  margin-top: 0.35rem;
+  color: var(--color-text-muted);
+}
+
+.voucher-security-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--color-border);
+}
+
+.voucher-barcode-graphic {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  letter-spacing: 2px;
+  color: var(--slate-800);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.voucher-timestamp {
+  font-size: 0.68rem;
+  color: var(--color-text-light);
+}
+
+/* ==========================================================================
+   15. APPLICATION FOOTER
+   ========================================================================== */
+.app-footer {
+  background-color: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  padding: 2.5rem 0 2rem 0;
+  margin-top: auto;
+}
+
+.footer-inner {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1.2fr;
+  gap: 2rem;
+}
+
+.footer-desc {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  margin-top: 0.65rem;
+  line-height: 1.5;
+}
+
+.footer-col-title {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.footer-list {
+  list-style: none;
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer-note-text {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  line-height: 1.45;
+}
+
+.footer-build-badge {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--tech-teal-700);
+  background-color: var(--tech-teal-100);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+}
+
+/* Spacing Helpers */
+.mt-3 { margin-top: 0.75rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-5 { margin-top: 1.25rem; }
+.mt-6 { margin-top: 1.5rem; }
+.ml-3 { margin-left: 0.75rem; }
+
+/* ==========================================================================
+   16. STRICT RESPONSIVE BREAKPOINTS (MOBILE, TABLET, DESKTOP)
+   ========================================================================== */
+
+/* BREAKPOINT 1: TABLET (640px – 1023px) */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .header-inner {
+    flex-wrap: wrap;
+    row-gap: 0.85rem;
+  }
+
+  .header-brand-group {
+    order: 1;
+  }
+
+  .header-role-console {
+    order: 2;
+  }
+
+  .header-search-wrapper {
+    order: 3;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* BREAKPOINT 2: MOBILE (< 640px) */
+@media (max-width: 639px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    overflow: hidden;
+  }
+
+  .header-brand-group {
+    justify-content: space-between;
+  }
+
+  .institution-meta {
+    display: none; /* Conserve mobile header space */
+  }
+
+  .header-search-wrapper {
+    max-width: 100%;
+  }
+
+  .header-role-console {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .role-pills-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .role-pill-option {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
+  .role-pill-label {
+    width: 100%;
+    justify-content: center;
+    padding: 0.45rem 0.45rem;
+    font-size: 0.72rem;
+    white-space: nowrap;
+  }
+
+  .portal-header-block {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .portal-quick-actions {
+    width: 100%;
+  }
+
+  .portal-quick-actions .btn {
+    width: 100%;
+  }
+
+  .kpi-dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-row-primary {
+    flex-direction: column;
+  }
+
+  .flex-1, .flex-2 {
+    flex: 1 1 100%;
+    width: 100%;
+  }
+
+  .equipment-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .passes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pass-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .card-header-bar {
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .branding-customizer-grid {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .form-grid-2, .form-grid-3, .voucher-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-modal {
+    width: 100%;
+    max-width: 100vw;
+    height: 100%;
+    max-height: 100vh;
+    border-radius: 0;
+    overflow-x: hidden;
+  }
+
+  .modal-dialog-content {
+    border-radius: 0;
+    height: 100vh;
+    max-height: 100vh;
+    padding: 1.25rem 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+  }
+
+  .modal-actions-footer {
+    flex-direction: column-reverse;
+  }
+
+  .modal-actions-footer .btn {
+    width: 100%;
+  }
+
+  .footer-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* BREAKPOINT 3: EXTRA SMALL MOBILE (<= 380px) */
+@media (max-width: 380px) {
+  .container {
+    padding-left: 0.65rem;
+    padding-right: 0.65rem;
+  }
+
+  .role-pill-label {
+    padding: 0.4rem 0.2rem;
+    font-size: 0.68rem;
+    gap: 0.2rem;
+  }
+
+  .role-pill-label svg {
+    width: 12px;
+    height: 12px;
+  }
+
+  .brand-logo-img {
+    height: 34px;
+  }
+
+  .modal-dialog-content {
+    padding: 1rem 0.75rem;
+  }
+}
+
+/* ==========================================================================
+   17. PRINT STYLES FOR VOUCHER / DIGITAL PASS
+   ========================================================================== */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  #modal-pass,
+  #modal-pass *,
+  .printable-voucher,
+  .printable-voucher * {
+    visibility: visible;
+  }
+
+  #modal-pass {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .modal-dialog-content {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .modal-header,
+  .modal-actions-footer,
+  .app-header,
+  .app-footer {
+    display: none !important;
+  }
+
+  .printable-voucher {
+    border: 2px solid #000;
+    padding: 20px;
+    width: 100%;
+  }
+}

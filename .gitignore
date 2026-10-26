@@ -19,3 +19,14 @@ desktop.ini
 *.log
 *.tmp
 node_modules/
+
+# Internal Testing Harness & Playwright (Never push to GitHub)
+package.json
+package-lock.json
+playwright.config.*
+tests/
+e2e/
+test-results/
+playwright-report/
+.playwright/
+
