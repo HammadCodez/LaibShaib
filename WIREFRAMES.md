@@ -1,4 +1,4 @@
-# 📐 LabEquip Reserve — System Wireframes & Specification Document
+# 📐 LabShaib — System Wireframes & Specification Document
 **Course:** CS344 — Web Engineering (Assignment 1)  
 **Assigned Topic:** Idea #04 — Lab Equipment Reservation  
 **Student Name:** Muhammad Hammad Butt  
