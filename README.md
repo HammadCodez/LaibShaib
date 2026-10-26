@@ -6,6 +6,8 @@
 **CMS ID:** 501399  
 **Class & Section:** SE15B  
 **Institution:** National University of Sciences and Technology (NUST), Islamabad — SEECS  
+**Live Web Application:** [https://labshaib.vercel.app](https://labshaib.vercel.app)  
+**GitHub Repository:** [https://github.com/HammadCodez/LaibShaib](https://github.com/HammadCodez/LaibShaib)  
 
 ---
 
@@ -29,10 +31,16 @@ Per course guidelines (*"GitHub must retain the three assignment stages through 
 
 ---
 
-## 🚀 Running Assignment 1
-1. Navigate into the `assignment-1/` directory.
-2. Open `index.html` in any modern web browser (Google Chrome, Microsoft Edge, Mozilla Firefox, Apple Safari).
-3. No server, node packages, or build tools required.
+## 🚀 Accessing & Running Assignment 1
+
+### Live Production Deployment
+* **Live Web App:** 👉 [https://labshaib.vercel.app](https://labshaib.vercel.app)
+
+### Local File Execution (Zero Dependencies)
+1. Clone or download this repository.
+2. Navigate into the `assignment-1/` directory.
+3. Open `index.html` in any modern web browser (Google Chrome, Microsoft Edge, Mozilla Firefox, Apple Safari).
+4. No server, node packages, or build tools required.
 
 For full architectural documentation, ASCII wireframes, and WDLC design notes, please review:
 - [`WIREFRAMES.md`](./WIREFRAMES.md)

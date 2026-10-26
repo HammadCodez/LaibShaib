@@ -7,6 +7,7 @@
 **Section:** SE15B  
 **Institution:** National University of Sciences and Technology (NUST), Islamabad — SEECS  
 **Assigned Idea:** **#04 — Lab Equipment Reservation** (from the 41-topic bank)  
+**Live Web Application:** [https://labshaib.vercel.app](https://labshaib.vercel.app)  
 **Submission Repository:** [https://github.com/HammadCodez/LaibShaib](https://github.com/HammadCodez/LaibShaib)
 
 ---
@@ -141,6 +142,10 @@ The course curriculum divides the system into three progressive stages. Below is
 ## 4. Step-by-Step Local Setup & Execution Guide
 
 **LabShaib** runs 100% self-contained in the browser without requiring npm, node modules, or backend databases.
+
+### Method 0: Live Production Web Application (Instant Evaluation)
+Access the live deployed application instantly at:  
+👉 **[https://labshaib.vercel.app](https://labshaib.vercel.app)**
 
 ### Method 1: Direct File Execution (Zero Setup)
 1. Clone or download this repository:

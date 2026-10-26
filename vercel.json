@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/", "destination": "/assignment-1/index.html" },
+    { "source": "/assets/(.*)", "destination": "/assignment-1/assets/$1" },
+    { "source": "/styles.css", "destination": "/assignment-1/styles.css" },
+    { "source": "/app.js", "destination": "/assignment-1/app.js" },
+    { "source": "/(.*)", "destination": "/assignment-1/$1" }
+  ]
+}
